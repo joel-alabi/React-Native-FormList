@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {StyleSheet,Text,TextInput,TouchableOpacity,ScrollView,View,} from "react-native";
-
+import {connect} from 'react-redux'
 
 class LogInScreen extends Component {
   
@@ -25,7 +25,7 @@ class LogInScreen extends Component {
             style={styles.input}
             placeholder="Password"
             placeholderTextColor="#aaaaaa"
-           
+            secureTextEntry={true}
            
             
           />
@@ -46,7 +46,6 @@ class LogInScreen extends Component {
     )
   }
 }
-export default  LogInScreen;
 
 
 const styles = StyleSheet.create({
@@ -104,3 +103,11 @@ const styles = StyleSheet.create({
     color: "#b617eb",
   },
 });  
+function mapStateToProps() {
+  return {}
+}
+
+function mapDispatchToProps() {
+  return {}
+}
+export default  connect(mapStateToProps,mapDispatchToProps)(LogInScreen);

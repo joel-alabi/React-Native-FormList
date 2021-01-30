@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View,Text,StyleSheet,TextInput,TouchableOpacity, ScrollView } from 'react-native';
-
+import {connect} from 'react-redux'
 
 class RegisterScreen extends Component {
    
@@ -17,14 +17,14 @@ class RegisterScreen extends Component {
             style={styles.input}
             placeholder="Email"
             placeholderTextColor="#aaaaaa"
-            
+            secureTextEntry
             
           />
           <TextInput
             style={styles.input}
             placeholder="Password"
             placeholderTextColor="#aaaaaa"
-            
+            secureTextEntry
            
           />
           <TextInput
@@ -116,5 +116,16 @@ const styles = StyleSheet.create({
         color: "#b734eb",
       },
   });
-  export default RegisterScreen; 
+  function mapStateToProps() {
+    return {}
+  }
+  
+  function mapDispatchToProps() {
+    return {}
+  }
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(RegisterScreen)
+
+  
+ 
 
