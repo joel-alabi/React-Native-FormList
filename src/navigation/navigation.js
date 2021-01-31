@@ -15,16 +15,12 @@ export default function AppContainer() {
       <Stack.Navigator>
 
       <Stack.Screen 
-      options={{
-        header: () => null
-      }}
+      options={{header: () => null }}
       name="LogInScreen"
        component={LogInScreen} />
 
       <Stack.Screen
-      options={{
-        header: () => null
-      }}
+      options={{header: () => null }}
        name="RegisterScreen" 
        component={RegisterScreen} />
 

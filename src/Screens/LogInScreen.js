@@ -1,11 +1,27 @@
 import React, { Component } from "react";
 import {StyleSheet,Text,TextInput,TouchableOpacity,ScrollView,View,} from "react-native";
 import {connect} from 'react-redux'
+import {logEmailAccount} from '../redux/actions/authActions'
 
 class LogInScreen extends Component {
-  
+  constructor(props){
+    super(props)
+    this.state={
+      email:"",
+      password:"",
+    }
+  }
+  handleUpdateState =(name,value)=>{
+    this.setState({
+      [name]:value
+    })
+
+  }
+  handleOnSubmit=()=>{
+this.props.logEmailAccount(this.state.email,this.state.password)
+  }
   render() {
-    const {navigation} = this.props
+    const {navigation,auth} = this.props
     return (
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -14,11 +30,18 @@ class LogInScreen extends Component {
         </View>
  
         <View>
+        {
+          auth.error.login && 
+          <Text style={{color:'red'}}>{auth.error.login}</Text>
+          }
         <TextInput
             style={styles.input}
             placeholder="Email"
             placeholderTextColor="#aaaaaa"
-           
+            onChangeText={(text)=>{
+              this.handleUpdateState('email',text)
+            }}
+            value={this.state.email}
             
           />
           <TextInput
@@ -26,6 +49,10 @@ class LogInScreen extends Component {
             placeholder="Password"
             placeholderTextColor="#aaaaaa"
             secureTextEntry={true}
+            value={this.state.password}
+            onChangeText={(text)=>{
+              this.handleUpdateState('password',text)
+            }}
            
             
           />
@@ -33,7 +60,9 @@ class LogInScreen extends Component {
         </View>
 
         <View>
-          <TouchableOpacity style={styles.button} >
+          <TouchableOpacity style={styles.button} 
+          onPress={()=>{navigation.navigate("ContactScreen")}}
+          >
             <Text style={styles.buttonText}>Log In</Text>
           </TouchableOpacity>
         </View>
@@ -103,11 +132,8 @@ const styles = StyleSheet.create({
     color: "#b617eb",
   },
 });  
-function mapStateToProps() {
-  return {}
+const mapStateToProps =(state)=> {
+  return {auth:state}
 }
 
-function mapDispatchToProps() {
-  return {}
-}
-export default  connect(mapStateToProps,mapDispatchToProps)(LogInScreen);
+export default  connect(mapStateToProps,{logEmailAccount})(LogInScreen);

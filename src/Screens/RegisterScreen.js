@@ -1,11 +1,31 @@
 import React, { Component } from 'react'
 import { View,Text,StyleSheet,TextInput,TouchableOpacity, ScrollView } from 'react-native';
 import {connect} from 'react-redux'
-
+import {createEmailAccount ,registerError} from '../redux/actions/authActions'
 class RegisterScreen extends Component {
-   
+   constructor(props){
+     super(props)
+     this.state={
+       email:"",
+       password:"",
+       confirm:"" 
+     }
+   }
+   handleUpdateState =(name,value)=>{
+     this.setState({
+       [name]:value
+     })
+
+   }
+   handleOnSubmit=()=>{
+if (this.state.password!==this.state.confirm){
+this.props.registerError('password do not match')
+return;
+}
+this.props.createEmailAccount(this.state.email,this.state.password)
+   }
     render() {
-        const {navigation} = this.props
+        const {navigation,auth} = this.props
         return (
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.signUpTextContainer}>
@@ -13,24 +33,41 @@ class RegisterScreen extends Component {
         </View>
 
         <View>
+          {
+          auth.error.register && 
+          <Text style={{color:'red'}}>{auth.error.register}</Text>
+          }
           <TextInput
             style={styles.input}
             placeholder="Email"
+            onChangeText={(text)=>{
+              this.handleUpdateState('email',text)
+            }}
+            value={this.state.email}
             placeholderTextColor="#aaaaaa"
-            secureTextEntry
+            
             
           />
           <TextInput
             style={styles.input}
             placeholder="Password"
             placeholderTextColor="#aaaaaa"
-            secureTextEntry
+            value={this.state.password}
+            onChangeText={(text)=>{
+              this.handleUpdateState('password',text)
+            }}
+            secureTextEntry={true}
            
           />
           <TextInput
             style={styles.input}
             placeholder="Confirm password"
             placeholderTextColor="#aaaaaa"
+             secureTextEntry={true}
+             onChangeText={(text)=>{
+              this.handleUpdateState('confirm',text)
+            }}
+            value={this.state.confirm}
            
             
           />
@@ -38,7 +75,10 @@ class RegisterScreen extends Component {
         </View>
 
         <View>
-          <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate("ContactScreen") }}>
+          <TouchableOpacity style={styles.button} 
+          
+          onPress={this.handleOnSubmit}
+          >
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -68,11 +108,11 @@ const styles = StyleSheet.create({
       },
     
       loginTextContainer: {
-        marginBottom: 25,
+        marginBottom: 20,
       },
     
       input: {
-        marginVertical:10,
+        marginVertical:15,
         paddingBottom:15,
         borderStyle:'solid',
         borderBottomColor:'#b734eb',
@@ -116,15 +156,14 @@ const styles = StyleSheet.create({
         color: "#b734eb",
       },
   });
-  function mapStateToProps() {
-    return {}
+
+ const mapStateToProps =(state)=> {
+    return {auth:state}
   }
   
-  function mapDispatchToProps() {
-    return {}
-  }
   
-  export default connect(mapStateToProps,mapDispatchToProps)(RegisterScreen)
+  
+  export default connect(mapStateToProps,{createEmailAccount,registerError})(RegisterScreen)
 
   
  

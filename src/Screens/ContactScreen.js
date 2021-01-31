@@ -10,8 +10,7 @@ export default function ContactScreen() {
     { name: "New Number", number: "343-354-8987" },
     { name: "Grajoe", number: "232-222-4565" },
     { name: "Dorsted", number: "054-675-9234" },
-    { name: "Grajoe", number: "232-222-4565" },
-    { name: "Dorsted", number: "054-675-9234" },
+   
   ];
 
   return (

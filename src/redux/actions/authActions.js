@@ -6,9 +6,10 @@ try{
   const user = await firebase
   .auth()
   .createUserWithEmailAndPassword(email,password)
+  console.log(user)
   dispatch(loggedIn(user))
 }catch(error){
-console.log(error)
+dispatch(registerError(error.message))
 }
     }
 }
@@ -18,9 +19,10 @@ export function logEmailAccount(email,password) {
         const user =await firebase
         .auth()
         .signInWithEmailAndPassword(email,password)
+         console.log(user)
         dispatch(loggedIn(user))
       }catch(error){
-      console.log(error)
+      dispatch(loginError(error.message))
       } 
     } 
 }
@@ -46,5 +48,18 @@ function loggedOut (user) {
     return{
         type:"LOGGED_OUT",
         
+    }
+}
+export function registerError(error){
+    return{
+        type:"REGISTER_ERROR",
+        payload:error
+    }
+}
+
+export function loginError(error){
+    return{
+        type:"LOGIN_ERROR",
+        payload:error
     }
 }
