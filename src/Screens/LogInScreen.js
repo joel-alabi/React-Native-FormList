@@ -61,7 +61,7 @@ this.props.logEmailAccount(this.state.email,this.state.password)
 
         <View>
           <TouchableOpacity style={styles.button} 
-          onPress={()=>{navigation.navigate("ContactScreen")}}
+          onPress={(this.handleOnSubmit)}
           >
             <Text style={styles.buttonText}>Log In</Text>
           </TouchableOpacity>
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   container: {
     margin: 55,
     marginTop: 100,
+    marginHorizontal: 30,
   },
  
   loginText: {
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     paddingBottom:15,
     borderStyle:'solid',
     borderBottomColor:'#b734eb',
-    borderBottomWidth:1,
+    borderBottomWidth:2,
     fontSize:20,
     marginTop:20,
     color:'black'

@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     container: {
         margin: 50,
         marginTop: 90,
+        marginHorizontal: 30,
       },
     
       signUpText: {
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
         paddingBottom:15,
         borderStyle:'solid',
         borderBottomColor:'#b734eb',
-        borderBottomWidth:1,
+        borderBottomWidth:2,
         fontSize:20,
         
       },
